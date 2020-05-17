@@ -1,5 +1,7 @@
 package com.example.telle.data
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.telle.utilities.TimeUtils
 
 /**
@@ -10,11 +12,15 @@ class EpisodeRepository private constructor(private val episodeDao: EpisodeDao) 
     fun getAllByID() = episodeDao.getAllByID()
     fun getAllLiveByDate() = episodeDao.getAllByDateDescLive()
     fun getAverageDuration() = episodeDao.getAverageDuration()
-    fun getAverageCycle() = episodeDao.getAverageCycle()
-    fun getLatestLiveEpisode() = episodeDao.getLatestLiveEpisode()
-
     fun getLatestEpisode() = episodeDao.getLatestEpisode()
     fun deleteOne(e: Episode) = episodeDao.delete(e)
+
+    fun getAverageCycle() =  episodeDao.getAverageCycle()
+    fun getLatestLiveEpisode() = episodeDao.getLatestLiveEpisode()
+
+    fun emptyDatabase(): Boolean {
+        return episodeDao.getCount() == 0
+    }
 
     /**
      * Update the cycle of the recently added episode and the episode just after

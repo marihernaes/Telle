@@ -33,21 +33,21 @@ class HomeFragment : Fragment() {
 
         viewModel.avgCycle.observe(viewLifecycleOwner, Observer {
             val estimatedCycle = it
-            viewModel.episodeWithLastStart.observe(viewLifecycleOwner, Observer {it ->
+            viewModel.episodeWithLastStart.observe(viewLifecycleOwner, Observer { it ->
                 val estimatedUpcomingStartDate = datePlusDays(it.startDate, estimatedCycle)
                 val estimatedDays = daysUntilDate(estimatedUpcomingStartDate)
                 // TODO MAKE TWO TEXT FIELDS IN THE DATA BINDING - AND ADD A DIVIDER
                 // Set the text with information about estimated new period
                 var daysString = ""
                 daysString = if (estimatedDays < 0) {
-                    ((-1)*estimatedDays).toString() + " days due\n"
+                    ((-1) * estimatedDays).toString() + " days due\n"
                 } else {
                     estimatedDays.toString() + " days left\n"
                 }
                 // TODO add special case if the estimation is "TODAY".
                 binding.debugText = daysString +
                         "Next period\n" + dateToShortString(estimatedUpcomingStartDate) +
-                        "\n(average cycle: " + (estimatedCycle - estimatedDays).toString() + " days)"
+                        "\n(average cycle: " + (estimatedCycle).toString() + " days)"
                 // Set the progress bar
                 binding.progressMax = estimatedCycle
                 binding.progressValue = estimatedCycle - estimatedDays
