@@ -1,0 +1,28 @@
+<resources>
+    <!-- Menu and activity titles -->
+    <string name="app_name">Telle</string>
+    <string name="title_home">Home</string>
+    <string name="title_display">History</string>
+    <string name="title_me">Me</string>
+    <string name="title_add_entity">Add Entity</string>
+    <!-- Actions -->
+    <string name="action_insert_dummy_data">Recompute all cycles</string>
+    <string name="action_delete_all_entries">Delete Last Entry</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <!-- For the database input -->
+    <string name="duration">Average Duration</string>
+    <string name="cycle">Average Cycle</string>
+    <string name="days">Days</string>
+    <string name="heavy">Heavy</string>
+    <string name="medium">Medium</string>
+    <string name="light">Light</string>
+    <string name="happy">Happy</string>
+    <string name="so_so">So-so</string>
+    <string name="sad">Sad</string>
+    <string name="hint_start_date">Start date</string>
+    <string name="hint_end_date">End date</string>
+    <string name="hint_notes">Notes</string>
+    <string name="hint_time_interval">Time interval</string>
+    <string name="current_cycle">Current cycle</string>
+</resources>

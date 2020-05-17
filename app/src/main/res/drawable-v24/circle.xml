@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- We draw a ring because in standard android, the circle progress bar can only be
+    indefinite (spinning forever). However, for the front page, we want a definitive,
+    circular progress bar, visualizing the circular time until next period.
+    See: https://android.jlelse.eu/android-shape-drawables-tutorial-17fbece6fef5 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <!-- An underneath shape to draw the full border -->
+        <shape
+            android:shape="ring"
+            android:innerRadiusRatio="3"
+            android:useLevel="false">
+            <solid
+                android:color="@color/softerBlueishGray" />
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="ring"
+            android:innerRadiusRatio="3">
+            <!-- "useLevel" for progress, "solid" for no gradient -->
+            <gradient
+                android:startColor="@color/colorStartCycle"
+                android:endColor="@color/colorEndCycle"
+                android:type="sweep"
+                android:useLevel="true"/>
+        </shape>
+    </item>
+
+</layer-list>

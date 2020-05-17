@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Go to https://www.colorhexa.com/ for palette help -->
+<resources>
+    <!-- Main palette -->
+    <color name="colorPrimary">#ff0055</color><!--#F0514B</color>-->
+    <color name="colorPrimaryDark">#00ff15</color> <!--</color>#4b98f0</color>-->
+    <color name="colorAccent">#00d5ff</color><!--#4bf0a4</color>-->
+
+    <!-- Background and highlight colors -->
+    <color name="softBlueishGray">#f5f6fa</color>
+    <color name="softerBlueishGray">#e4e7f2</color>
+    <color name="cardColor">#ffffff</color>
+
+    <!-- Colors for the gradient in the progress bar -->
+    <color name="colorStartCycle">@color/colorPrimary</color>
+    <color name="colorEndCycle">@color/colorAccent</color>
+</resources>
