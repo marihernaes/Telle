@@ -3,8 +3,8 @@
 
 ## Screenshots
 ![Home Fragment](screenshots/home_fragment.png "A progress bar, estimating days to next period")
-![Display Fragment](screenshots/display_fragment.png "A list of the periods in the database")
 ![Add Entity Activity](screenshots/add_entity.png "Input form for adding new periods")
+![Display Fragment](screenshots/display_fragment.png "A list of the periods in the database")
 
 ## Libraries
 - [Room][0] - For accessing the SQLite database
