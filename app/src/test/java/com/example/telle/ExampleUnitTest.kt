@@ -1,6 +1,7 @@
 package com.example.telle
 
 import com.example.telle.utilities.TimeUtils.calculateDuration
+import com.example.telle.utilities.TimeUtils.datePlusDays
 import com.example.telle.utilities.TimeUtils.numberStringToDate
 import com.example.telle.utilities.TimeUtils.stringToDate
 import org.junit.Test
@@ -31,4 +32,19 @@ class ExampleUnitTest {
         val startDate = numberStringToDate("2020-04-14")
         assertEquals(0, calculateDuration(startDate,startDate))
     }
+
+    @Test
+    fun calculate_daysPlusDate_isCorrect() {
+        val startDate = numberStringToDate("2020-04-14")
+        val targetDate =  numberStringToDate("2020-04-18")
+        assertEquals(targetDate, datePlusDays(startDate, 4))
+    }
+
+    @Test
+    fun calculate_manyDaysPlusDate_isCorrect() {
+        val startDate = numberStringToDate("2020-04-14")
+        val targetDate =  numberStringToDate("2020-05-14")
+        assertEquals(targetDate, datePlusDays(startDate, 30))
+    }
+
 }

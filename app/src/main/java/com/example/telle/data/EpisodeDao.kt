@@ -9,8 +9,8 @@ import androidx.room.*
 @Dao
 interface EpisodeDao {
     // Getters
-    @Query("SELECT COUNT(*)")
-    fun getCount(): Int
+    @Query("SELECT COUNT(*) FROM episode")
+    fun getCount(): LiveData<Int>
 
     @Query("SELECT * FROM episode ORDER BY start_date ASC")
     fun getAllByDateAsc(): List<Episode>

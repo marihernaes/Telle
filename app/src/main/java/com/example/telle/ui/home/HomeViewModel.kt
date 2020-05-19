@@ -10,8 +10,7 @@ import com.example.telle.data.EpisodeRepository
  */
 class HomeViewModel(val episodeRepository: EpisodeRepository) : ViewModel() {
 
-    // val emptyDatabase = episodeRepository.emptyDatabase()
-    // TODO research how to do avoid these when the database is empty..
+    val numElements = episodeRepository.getCount()
     val avgCycle = episodeRepository.getAverageCycle()
     val episodeWithLastStart = episodeRepository.getLatestLiveEpisode()
 }

@@ -51,17 +51,21 @@ object TimeUtils {
     }
 
     /**
-     * From a date and a number of days, calculate the new date when adding this number of dates
+     * From a date and a number of days, calculate the new date when adding days
      */
-    fun datePlusDays(startDate: Date, cycle: Int): Date {
-        return Date(startDate.time + (oneDay * cycle))
+    fun datePlusDays(startDate: Date, days: Int): Date {
+        val cal = Calendar.getInstance()
+        cal.time = startDate
+        cal.add(Calendar.DAY_OF_MONTH, days)
+        return cal.time
     }
 
     /**
-     * Returns number of days until a given date, or the number of days since date
+     * Calculate number of days from today until a given target date
      */
     fun daysUntilDate(targetDate: Date): Int {
-        val currentDate = Calendar.getInstance().timeInMillis
-        return ((targetDate.time - currentDate) / oneDay).toInt()
+        var currentTime = System.currentTimeMillis()
+        return ((targetDate.time - currentTime) / oneDay).toInt()
     }
+
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.telle.databinding.FragmentHomeBinding
 import com.example.telle.utilities.InjectorUtils
+import com.example.telle.utilities.TimeUtils.calculateDuration
 import com.example.telle.utilities.TimeUtils.datePlusDays
 import com.example.telle.utilities.TimeUtils.dateToShortString
 import com.example.telle.utilities.TimeUtils.daysUntilDate
@@ -31,27 +32,43 @@ class HomeFragment : Fragment() {
         val binding = FragmentHomeBinding.inflate(inflater, container, false)
         context ?: return binding.root
 
-        viewModel.avgCycle.observe(viewLifecycleOwner, Observer {
-            val estimatedCycle = it
-            viewModel.episodeWithLastStart.observe(viewLifecycleOwner, Observer { it ->
-                val estimatedUpcomingStartDate = datePlusDays(it.startDate, estimatedCycle)
-                val estimatedDays = daysUntilDate(estimatedUpcomingStartDate)
-                // TODO MAKE TWO TEXT FIELDS IN THE DATA BINDING - AND ADD A DIVIDER
-                // Set the text with information about estimated new period
-                var daysString = ""
-                daysString = if (estimatedDays < 0) {
-                    ((-1) * estimatedDays).toString() + " days due\n"
-                } else {
-                    estimatedDays.toString() + " days left\n"
-                }
-                // TODO add special case if the estimation is "TODAY".
-                binding.debugText = daysString +
-                        "Next period\n" + dateToShortString(estimatedUpcomingStartDate) +
-                        "\n(average cycle: " + (estimatedCycle).toString() + " days)"
-                // Set the progress bar
-                binding.progressMax = estimatedCycle
-                binding.progressValue = estimatedCycle - estimatedDays
-            })
+        // TODO remove or document hard-coded values
+        // TODO or make it possible to choose the standard under "me"
+        var estimatedCycle = 28  // Biological standard cycle
+        var estimatedWaitingTime = estimatedCycle // Default to day zero in period
+
+        viewModel.numElements.observe(viewLifecycleOwner, Observer { numElements ->
+            // TODO add string information when the database is empty
+            if (numElements > 0) {
+                // If the database contains only one element, the average cycle is null
+                viewModel.avgCycle.observe(viewLifecycleOwner, Observer {avgCycle ->
+                    if (avgCycle != null) {
+                        estimatedCycle = avgCycle
+                    }
+                })
+                // Based on the episode with the latest start date, estimate the next period
+                viewModel.episodeWithLastStart.observe(viewLifecycleOwner, Observer {
+                    estimatedWaitingTime =
+                        daysUntilDate(datePlusDays(it.startDate, estimatedCycle))
+
+                    // Set the string depending on the number of days
+                    val daysString = if (estimatedWaitingTime < 0) {
+                        ((-1) * estimatedWaitingTime).toString() + " days due\n"
+                    } else {
+                        estimatedWaitingTime.toString() + " days left\n"
+                    }
+                    // TODO add special case if the estimation is "TODAY".
+                    // TODO MAKE TWO TEXT FIELDS IN THE DATA BINDING - AND ADD A DIVIDER
+                    binding.debugText = daysString + "Next period\n" +
+                            dateToShortString(datePlusDays(it.startDate, estimatedCycle)) +
+                            "\n(average cycle: " + (estimatedCycle).toString() + " days)"
+
+                    // Set the progress bar
+                    binding.progressMax = estimatedCycle
+                    binding.progressValue = estimatedCycle - estimatedWaitingTime
+                })
+
+            }
         })
 
         return binding.root
